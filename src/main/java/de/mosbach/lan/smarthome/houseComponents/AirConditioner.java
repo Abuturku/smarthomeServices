@@ -1,5 +1,36 @@
 package de.mosbach.lan.smarthome.houseComponents;
 
-public class AirConditioner {
+import javax.persistence.GeneratedValue;
 
+public class AirConditioner {
+	private long id;
+	private State state;
+	
+	
+	@GeneratedValue
+	public long getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public State getState() {
+		return state;
+	}
+	public void setState(State state) {
+		this.state = state;
+	}
+	
+	public AirConditioner() {
+		super();
+	}
+	
+	public void turnOn(){
+		this.state = State.TURNED_ON;
+	}
+	
+	
+	public void turnOff(){
+		this.state = State.TURNED_OFF;
+	}
 }
