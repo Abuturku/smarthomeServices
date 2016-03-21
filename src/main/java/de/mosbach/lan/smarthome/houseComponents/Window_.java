@@ -40,11 +40,13 @@ public class Window_ {
 		this.state = State.CLOSED;
 	}
 	
-	public void close(){
+	public boolean close(){
 		this.state = State.CLOSED;
+		return true;
 	}
 	
-	public void open(){
+	public boolean open(){
 		this.state = State.OPENED;
+		return true;
 	}
 }

@@ -35,7 +35,8 @@ public class WindowService {
 			{
 				Window_ window = em.find(Window_.class, id);
 				window.open();
-				em.merge(window);	
+				em.merge(window);
+				
 			}
 		});
 	}
@@ -76,7 +77,6 @@ public class WindowService {
 			@Override
 			public void run(EntityManager em, EntityTransaction transaction)
 			{
-//				Window_ windowToBeRemoved = getWindowById(id);
 				Window_ windowToBeRemoved = em.find(Window_.class, id);
 				em.remove(windowToBeRemoved);
 				
