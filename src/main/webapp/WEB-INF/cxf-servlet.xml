@@ -7,5 +7,17 @@
 
 	<jaxws:endpoint id="outsideTemperatureService"
 		implementor="de.mosbach.lan.smarthome.services.OutsideTemperatureService" address="/outsideTemperatureService" />
+		
+	<jaxws:endpoint id="windowService"
+		implementor="de.mosbach.lan.smarthome.services.WindowService" address="/windowService" />
+	
+	<jaxws:endpoint id="heaterService"
+		implementor="de.mosbach.lan.smarthome.services.HeaterService" address="/heaterService" />
+		
+	<jaxws:endpoint id="airConditionerService"
+		implementor="de.mosbach.lan.smarthome.services.AirConditionerService" address="/airConditionerService" />
+		
+	<jaxws:endpoint id="InsideTemperatureService"
+		implementor="de.mosbach.lan.smarthome.services.InsideTemperatureService" address="/insideTemperatureService" />
 
 </beans>

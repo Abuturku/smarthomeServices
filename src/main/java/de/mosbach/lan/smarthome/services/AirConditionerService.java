@@ -1,10 +1,12 @@
 package de.mosbach.lan.smarthome.services;
 
+import javax.jws.WebService;
+
+@WebService(serviceName = "airConditionerService", name="airConditionerService", portName="airConditionerService")
 public class AirConditionerService {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	public AirConditionerService() {
+		
 	}
 
 }

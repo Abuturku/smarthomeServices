@@ -1,10 +1,12 @@
 package de.mosbach.lan.smarthome.services;
 
+import javax.jws.WebService;
+
+@WebService(serviceName = "heaterService", name="HeaterService", portName="HeaterService")
 public class HeaterService {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	public HeaterService() {
+		
 	}
 
 }
