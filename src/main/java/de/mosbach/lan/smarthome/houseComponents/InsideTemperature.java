@@ -1,5 +1,6 @@
 package de.mosbach.lan.smarthome.houseComponents;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -76,5 +77,10 @@ public class InsideTemperature {
         } else {
             currentTemp = currentTemperature;
         }
+    }
+    
+    @Column
+    public String getRoomName(){
+    	return this.roomName;
     }
 }
