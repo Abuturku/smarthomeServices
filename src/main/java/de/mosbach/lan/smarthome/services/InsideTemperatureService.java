@@ -1,8 +1,10 @@
 package de.mosbach.lan.smarthome.services;
 
 import de.mosbach.lan.smarthome.houseComponents.Database;
+import de.mosbach.lan.smarthome.houseComponents.IStatusData;
 import de.mosbach.lan.smarthome.houseComponents.InsideTemperature;
 import de.mosbach.lan.smarthome.houseComponents.Database.EntityManagerTransaction;
+import de.mosbach.lan.smarthome.houseComponents.StatusData;
 
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -46,20 +48,47 @@ public class InsideTemperatureService {
 			em.close();
 		}
 	}
+	
+	public int getTemperature(
+		@XmlElement(required = true) @WebParam(name = "roomName") String roomName,
+		@XmlElement(required = true) @WebParam(name = "statusData") StatusData statusData) {
+//TODO Konnte nicht gegen IStatusData implementieren weil ich dieMethode getInsideTempRequirement brauche....
+	
+		InsideTemperature insideTemp = getInsideTempByRoomName(roomName);
+		
+		//check if change of GoalTemp is required
+		double oldGoalTemp = insideTemp.getGoalTemp();
+		double currentGoalTemp;
+		
+		if(statusData.getStateWindow() == statusData.TRUE){
+			currentGoalTemp = statusData.getOutsideTemperature();
+		} else {
+			currentGoalTemp = statusData.getInsideTempRequirement();
+		}
+		
+//TODO soll ich den code der anderne funktionen hier rüberkopieren oder sollen die zwei anderne methoden zu testzwecken erhalten bleiben?
+		if(currentGoalTemp != oldGoalTemp){
+			setGoalTemperature(roomName, currentGoalTemp);
+		}
+		
+		return getInsideTemperature(roomName);
+
+	}
 
 	public void setGoalTemperature(
 			@XmlElement(required = true) @WebParam(name = "roomName") String roomName,
 			@XmlElement(required = true) @WebParam(name = "temperature") double temperature) {
 		
-		InsideTemperature insideTemp = getInsideTempByRoomName(roomName);
-		insideTemp.setNewGoalTemperature(temperature);
-
-		Database.transaction(new EntityManagerTransaction() {
-			@Override
-			public void run(EntityManager em, EntityTransaction transaction) {
-				em.merge(insideTemp);
-			}
-		});
+			InsideTemperature insideTemp = getInsideTempByRoomName(roomName);
+			insideTemp.setNewGoalTemperature(temperature);
+	
+			Database.transaction(new EntityManagerTransaction() {
+					@Override
+					public void run(EntityManager em, EntityTransaction transaction) {
+						em.merge(insideTemp);
+					}
+				}
+								);
 	}
 
 	public int getInsideTemperature(@XmlElement(required = true) @WebParam(name = "roomName") String roomName) {
