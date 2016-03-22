@@ -14,31 +14,44 @@ import de.mosbach.lan.smarthome.houseComponents.Window_;
 @WebService(serviceName = "windowService", name = "windowService", portName = "windowService")
 public class WindowService {
 
-	public void closeWindow(long id) {		
+	public boolean closeWindow(String roomName) {	
+		List<Window_> windows = getWindowsByRoomName(roomName);
+		if (windows == null) {
+			return false;
+		}
+		
 		Database.transaction(new EntityManagerTransaction()
 		{
 			@Override
 			public void run(EntityManager em, EntityTransaction transaction)
 			{
-				Window_ window = em.find(Window_.class, id);
-				window.close();
-				em.merge(window);	
+				for (Window_ window : windows) {
+					window.close();
+					em.merge(window);
+				}
 			}
 		});
+		return true;
 	}
 
-	public void openWindow(long id) {
+	public boolean openWindow(String roomName) {
+		List<Window_> windows = getWindowsByRoomName(roomName);
+		if (windows == null) {
+			return false;
+		}
+		
 		Database.transaction(new EntityManagerTransaction()
 		{
 			@Override
 			public void run(EntityManager em, EntityTransaction transaction)
 			{
-				Window_ window = em.find(Window_.class, id);
-				window.open();
-				em.merge(window);
-				
+				for (Window_ window : windows) {
+					window.open();
+					em.merge(window);
+				}
 			}
 		});
+		return true;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -54,9 +67,12 @@ public class WindowService {
 			em.close();
 		}
 	}
-
-	public long addWindow() {
+	
+	
+	public long addWindow(String roomName) {
+		
 		Window_ newWindow = new Window_();
+		newWindow.setRoomName(roomName);
 		
 		Database.transaction(new EntityManagerTransaction()
 		{
@@ -92,6 +108,19 @@ public class WindowService {
 		} finally{
 			em.close();
 		}
-		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Window_> getWindowsByRoomName(String roomName){
+		final EntityManager em = Database.getEntityManager();
+
+		try
+		{
+			return ImmutableList.copyOf(em.createQuery("from Window_ w where w.roomName = :roomName").setParameter("roomName", roomName).getResultList());
+		}
+		finally
+		{
+			em.close();
+		}
 	}
 }

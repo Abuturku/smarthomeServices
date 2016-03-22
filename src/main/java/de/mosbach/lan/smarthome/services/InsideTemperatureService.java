@@ -17,10 +17,10 @@ public class InsideTemperatureService {
     private double currentTemp;
     long timePassed;
 
-    public InsideTemperatureService(double goalTemperature) {
-        this(10.0, goalTemperature);
+    public InsideTemperatureService(){
+    	this(20.0,20.0);
     }
-
+    
     public InsideTemperatureService(double startTemperature, double goalTemperature) {
         startTime = System.currentTimeMillis();
         this.startTemp = startTemperature;
@@ -50,7 +50,11 @@ public class InsideTemperatureService {
         deltaTemp = (goalTemp - startTemp);
         //unit of time: millisec
         neededTime = 2000.0 * deltaTemp;
-        a = ((deltaTemp*deltaTemp) / neededTime);
+        if(neededTime == 0){
+        	a = 0;
+        } else {
+			a = ((deltaTemp*deltaTemp) / neededTime);
+		}
         if (a < 0) {
             a = Math.abs(a);
             sign = -1;

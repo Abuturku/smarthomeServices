@@ -14,7 +14,8 @@ public class Window_ {
 	
 	private long id;
 	private State state;
-	
+	private String roomName;
+
 	@Id
 	@GeneratedValue
 	@XmlTransient
@@ -34,6 +35,17 @@ public class Window_ {
 	
 	public void setState(State state) {
 		this.state = state;
+	}
+	
+	@Column
+	@XmlAttribute
+	public String getRoomName() {
+		return roomName;
+	}
+	
+
+	public void setRoomName(String roomId) {
+		this.roomName = roomId;
 	}
 	
 	public Window_(){

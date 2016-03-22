@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class AirConditioner {
 	private long id;
 	private State state;
+	private String roomName;
 	
 	@Id
 	@GeneratedValue
@@ -20,7 +21,7 @@ public class AirConditioner {
 	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	
@@ -31,6 +32,16 @@ public class AirConditioner {
 	}
 	public void setState(State state) {
 		this.state = state;
+	}
+	
+	@Column
+	@XmlAttribute
+	public String getRoomName() {
+		return roomName;
+	}
+
+	public void setRoomName(String roomName) {
+		this.roomName = roomName;
 	}
 	
 	public AirConditioner() {
