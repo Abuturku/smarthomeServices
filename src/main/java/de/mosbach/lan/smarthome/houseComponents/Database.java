@@ -98,7 +98,10 @@ public final class Database
 				catch (final Exception e)
 				{
 					// TODO do some logging
+					System.out.println(e);
+					
 					transaction.setRollbackOnly();
+					throw new RuntimeException(e);
 				}
 
 				// auto-commit

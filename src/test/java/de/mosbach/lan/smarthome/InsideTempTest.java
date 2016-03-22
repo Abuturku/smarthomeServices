@@ -1,14 +1,15 @@
 package de.mosbach.lan.smarthome;
 
-import de.mosbach.lan.smarthome.services.InsideTemperatureService;
+import de.mosbach.lan.smarthome.houseComponents.InsideTemperature;
 
 public class InsideTempTest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		InsideTemperatureService test = new InsideTemperatureService(10, 10);
+		InsideTemperature test = new InsideTemperature("A1");
 		
+		test.setNewGoalTemperature(30);
 		System.out.println("Innentemp: "+test.getInsideTemperature());
 
 

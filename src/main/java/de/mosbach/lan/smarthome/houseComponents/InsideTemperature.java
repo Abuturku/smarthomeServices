@@ -2,6 +2,7 @@ package de.mosbach.lan.smarthome.houseComponents;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -11,7 +12,79 @@ public class InsideTemperature {
 	
 	//start info
     private long startTime;
-    private double startTemp;
+    public long getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(long startTime) {
+		this.startTime = startTime;
+	}
+
+	public double getStartTemp() {
+		return startTemp;
+	}
+
+	public void setStartTemp(double startTemp) {
+		this.startTemp = startTemp;
+	}
+
+	public double getGoalTemp() {
+		return goalTemp;
+	}
+
+	public void setGoalTemp(double goalTemp) {
+		this.goalTemp = goalTemp;
+	}
+
+	public double getDeltaTemp() {
+		return deltaTemp;
+	}
+
+	public void setDeltaTemp(double deltaTemp) {
+		this.deltaTemp = deltaTemp;
+	}
+
+	public double getA() {
+		return a;
+	}
+
+	public void setA(double a) {
+		this.a = a;
+	}
+
+	public int getSign() {
+		return sign;
+	}
+
+	public void setSign(int sign) {
+		this.sign = sign;
+	}
+
+	public double getNeededTime() {
+		return neededTime;
+	}
+
+	public void setNeededTime(double neededTime) {
+		this.neededTime = neededTime;
+	}
+
+	public double getCurrentTemp() {
+		return currentTemp;
+	}
+
+	public void setCurrentTemp(double currentTemp) {
+		this.currentTemp = currentTemp;
+	}
+
+	public long getTimePassed() {
+		return timePassed;
+	}
+
+	public void setTimePassed(long timePassed) {
+		this.timePassed = timePassed;
+	}
+
+	private double startTemp;
     private double goalTemp;
     //parameters for formula
     private double deltaTemp;
@@ -22,6 +95,10 @@ public class InsideTemperature {
     private double currentTemp;
     long timePassed;
 
+    public InsideTemperature() {
+    	this("A1");
+	}
+    
     public InsideTemperature(String roomName){
     	this(20.0,20.0, roomName);
     }
@@ -80,7 +157,12 @@ public class InsideTemperature {
     }
     
     @Column
+    @Id
     public String getRoomName(){
     	return this.roomName;
+    }
+    
+    public void setRoomName(String roomName){
+    	this.roomName = roomName;
     }
 }
