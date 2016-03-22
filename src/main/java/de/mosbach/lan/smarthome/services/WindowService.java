@@ -2,9 +2,11 @@ package de.mosbach.lan.smarthome.services;
 
 import java.util.List;
 
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.xml.bind.annotation.XmlElement;
 
 import jersey.repackaged.com.google.common.collect.ImmutableList;
 import de.mosbach.lan.smarthome.houseComponents.Database;
@@ -14,9 +16,9 @@ import de.mosbach.lan.smarthome.houseComponents.Window_;
 @WebService(serviceName = "windowService", name = "windowService", portName = "windowService")
 public class WindowService {
 
-	public boolean closeWindow(String roomName) {	
+	public boolean closeWindow(@XmlElement(required = true) @WebParam(name = "roomName")String roomName) {	
 		List<Window_> windows = getWindowsByRoomName(roomName);
-		if (windows == null) {
+		if (windows.size() == 0) {
 			return false;
 		}
 		
@@ -33,10 +35,10 @@ public class WindowService {
 		});
 		return true;
 	}
-
-	public boolean openWindow(String roomName) {
+	
+	public boolean openWindow(@XmlElement(required = true) @WebParam(name = "roomName")String roomName) {
 		List<Window_> windows = getWindowsByRoomName(roomName);
-		if (windows == null) {
+		if (windows.size() == 0) {
 			return false;
 		}
 		
@@ -69,8 +71,7 @@ public class WindowService {
 	}
 	
 	
-	public long addWindow(String roomName) {
-		
+	public long addWindow(@XmlElement(required = true) @WebParam(name = "roomName")String roomName) {
 		Window_ newWindow = new Window_();
 		newWindow.setRoomName(roomName);
 		
@@ -85,7 +86,7 @@ public class WindowService {
 		return newWindow.getId();
 	}
 	
-	public void removeWindow(long id){
+	public void removeWindow(@WebParam(name = "windowId")long id){
 		
 		
 		Database.transaction(new EntityManagerTransaction()
@@ -100,7 +101,7 @@ public class WindowService {
 		});
 	}
 
-	public Window_ getWindowById(long id) {		
+	public Window_ getWindowById(@WebParam(name = "windowId")long id) {		
 		final EntityManager em = Database.getEntityManager();
 		
 		try {
@@ -111,7 +112,7 @@ public class WindowService {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Window_> getWindowsByRoomName(String roomName){
+	public List<Window_> getWindowsByRoomName(@XmlElement(required = true) @WebParam(name = "roomName")String roomName){
 		final EntityManager em = Database.getEntityManager();
 
 		try

@@ -38,18 +38,18 @@ public class Window_ {
 	}
 	
 	@Column
-	@XmlAttribute
+	@XmlAttribute(required = true)
 	public String getRoomName() {
 		return roomName;
 	}
 	
-
 	public void setRoomName(String roomId) {
 		this.roomName = roomId;
 	}
 	
 	public Window_(){
 		this.state = State.CLOSED;
+		this.roomName = "A1";
 	}
 	
 	public boolean close(){

@@ -10,6 +10,7 @@
 		<class>de.mosbach.lan.smarthome.houseComponents.Window</class>
 		<class>de.mosbach.lan.smarthome.houseComponents.AirConditioner</class>
 		<class>de.mosbach.lan.smarthome.houseComponents.Heater</class>
+		<class>de.mosbach.lan.smarthome.houseComponents.InsideTemperature</class>
 		
 		<properties>
 		
