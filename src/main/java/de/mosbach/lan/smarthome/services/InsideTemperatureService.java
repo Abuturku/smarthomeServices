@@ -1,9 +1,9 @@
 package de.mosbach.lan.smarthome.services;
 
 import de.mosbach.lan.smarthome.houseComponents.Database;
-import de.mosbach.lan.smarthome.houseComponents.IStatusData;
 import de.mosbach.lan.smarthome.houseComponents.InsideTemperature;
 import de.mosbach.lan.smarthome.houseComponents.Database.EntityManagerTransaction;
+import de.mosbach.lan.smarthome.houseComponents.StatusData;
 
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -56,7 +56,7 @@ public class InsideTemperatureService {
 
 	public int getTemperature(
 			@XmlElement(required = true) @WebParam(name = "roomName") String roomName,
-			@XmlElement(required = true) @WebParam(name = "statusData") IStatusData statusData) {
+			@XmlElement(required = true) @WebParam(name = "statusData") StatusData statusData) {
 		
 		InsideTemperature insideTemp = getInsideTempByRoomName(roomName);
 
@@ -64,7 +64,7 @@ public class InsideTemperatureService {
 		double oldGoalTemp = insideTemp.getGoalTemp();
 		double currentGoalTemp;
 
-		if (statusData.getStateWindow() == IStatusData.TRUE) {
+		if (statusData.getStateWindow() == StatusData.TRUE) {
 			currentGoalTemp = statusData.getOutsideTemperature();
 		} else {
 			currentGoalTemp = statusData.getInsideTempRequirement();
@@ -86,26 +86,26 @@ public class InsideTemperatureService {
 		return insideTemp.getInsideTemperature();
 
 	}
-
-	public void setGoalTemperature(
-			@XmlElement(required = true) @WebParam(name = "roomName") String roomName,
-			@XmlElement(required = true) @WebParam(name = "temperature") double temperature) {
-
-		InsideTemperature insideTemp = getInsideTempByRoomName(roomName);
-		insideTemp.setNewGoalTemperature(temperature);
-
-		Database.transaction(new EntityManagerTransaction() {
-			@Override
-			public void run(EntityManager em, EntityTransaction transaction) {
-				em.merge(insideTemp);
-			}
-		});
-	}
-
-	public int getInsideTemperature(
-			@XmlElement(required = true) @WebParam(name = "roomName") String roomName) {
-		InsideTemperature insideTemp = getInsideTempByRoomName(roomName);
-		return insideTemp.getInsideTemperature();
-	}
+//
+//	public void setGoalTemperature(
+//			@XmlElement(required = true) @WebParam(name = "roomName") String roomName,
+//			@XmlElement(required = true) @WebParam(name = "temperature") double temperature) {
+//
+//		InsideTemperature insideTemp = getInsideTempByRoomName(roomName);
+//		insideTemp.setNewGoalTemperature(temperature);
+//
+//		Database.transaction(new EntityManagerTransaction() {
+//			@Override
+//			public void run(EntityManager em, EntityTransaction transaction) {
+//				em.merge(insideTemp);
+//			}
+//		});
+//	}
+//
+//	public int getInsideTemperature(
+//			@XmlElement(required = true) @WebParam(name = "roomName") String roomName) {
+//		InsideTemperature insideTemp = getInsideTempByRoomName(roomName);
+//		return insideTemp.getInsideTemperature();
+//	}
 
 }
