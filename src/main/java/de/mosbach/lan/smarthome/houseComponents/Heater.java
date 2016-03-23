@@ -45,7 +45,7 @@ public class Heater {
 	}
 	
 	public Heater() {
-		super();
+		this.state = State.TURNED_OFF;
 	}
 	
 	public void turnOn(){

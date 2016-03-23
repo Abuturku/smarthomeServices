@@ -14,30 +14,42 @@ import jersey.repackaged.com.google.common.collect.ImmutableList;
 @WebService(serviceName = "heaterService", name="HeaterService", portName="HeaterService")
 public class HeaterService {
 
-	public void turnOffHeater(long id){
+	public boolean turnOffHeater(String roomName){
+		List<Heater> heaters = getHeatersByRoomName(roomName);
+		if (heaters.size() == 0) {
+			return false;
+		}
 		Database.transaction(new EntityManagerTransaction()
 		{
 			@Override
 			public void run(EntityManager em, EntityTransaction transaction)
 			{
-				Heater heater= em.find(Heater.class, id);
-				heater.turnOff();
-				em.merge(heater);	
+				for (Heater heater : heaters) {
+					heater.turnOff();
+					em.merge(heater);
+				}
 			}
 		});
+		return true;
 	}
 	
-	public void turnOnHeater(long id){
+	public boolean turnOnHeater(String roomName){
+		List<Heater> heaters = getHeatersByRoomName(roomName);
+		if (heaters.size() == 0) {
+			return false;
+		}
 		Database.transaction(new EntityManagerTransaction()
 		{
 			@Override
 			public void run(EntityManager em, EntityTransaction transaction)
 			{
-				Heater heater= em.find(Heater.class, id);
-				heater.turnOn();
-				em.merge(heater);	
+				for (Heater heater : heaters) {
+					heater.turnOn();
+					em.merge(heater);
+				}
 			}
 		});
+		return true;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -51,8 +63,9 @@ public class HeaterService {
 		}
 	}
 	
-	public long addHeater(){
+	public long addHeater(String roomName){
 		Heater newHeater = new Heater();
+		newHeater.setRoomName(roomName);
 		
 		Database.transaction(new EntityManagerTransaction()
 		{
@@ -65,24 +78,38 @@ public class HeaterService {
 		return newHeater.getId();
 	}
 	
-	public void removeHeater(long id){
+	public void removeHeater(String roomName){
 		Database.transaction(new EntityManagerTransaction() {
 			
 			@Override
 			public void run(EntityManager em, EntityTransaction transaction) {
-				Heater heaterToBeRemoved = em.find(Heater.class, id);
+				Heater heaterToBeRemoved = em.find(Heater.class, roomName);
 				em.remove(heaterToBeRemoved);
 				
 			}
 		});
 	}
 	
-	public Heater getHeaterById(long id){
+	public Heater getHeaterByRoomName(String roomName){
 		final EntityManager em = Database.getEntityManager();
 		
 		try {
-			return (Heater) em.createQuery("from Heater h where h.id = :id").setParameter("id", id).getSingleResult();
+			return (Heater) em.createQuery("from Heater h where h.roomName = :roomName").setParameter("roomName", roomName).getSingleResult();
 		} finally {
+			em.close();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private List<Heater> getHeatersByRoomName(String roomName) {
+		final EntityManager em = Database.getEntityManager();
+
+		try
+		{
+			return ImmutableList.copyOf(em.createQuery("from Heater h where h.roomName = :roomName").setParameter("roomName", roomName).getResultList());
+		}
+		finally
+		{
 			em.close();
 		}
 	}

@@ -45,7 +45,7 @@ public class AirConditioner {
 	}
 	
 	public AirConditioner() {
-		super();
+		this.state = State.TURNED_ON;
 	}
 	
 	public void turnOn(){
