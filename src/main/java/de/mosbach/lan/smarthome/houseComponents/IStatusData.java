@@ -17,4 +17,6 @@ public interface IStatusData {
 	public int getStateHeater();
 
 	public int getStateWindow();
+
+	int getInsideTempRequirement();
 }
