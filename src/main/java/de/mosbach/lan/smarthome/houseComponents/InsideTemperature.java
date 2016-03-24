@@ -12,78 +12,6 @@ public class InsideTemperature {
 	
 	//start info
     private long startTime;
-    public long getStartTime() {
-		return startTime;
-	}
-
-	public void setStartTime(long startTime) {
-		this.startTime = startTime;
-	}
-
-	public double getStartTemp() {
-		return startTemp;
-	}
-
-	public void setStartTemp(double startTemp) {
-		this.startTemp = startTemp;
-	}
-
-	public double getGoalTemp() {
-		return goalTemp;
-	}
-
-	public void setGoalTemp(double goalTemp) {
-		this.goalTemp = goalTemp;
-	}
-
-	public double getDeltaTemp() {
-		return deltaTemp;
-	}
-
-	public void setDeltaTemp(double deltaTemp) {
-		this.deltaTemp = deltaTemp;
-	}
-
-	public double getA() {
-		return a;
-	}
-
-	public void setA(double a) {
-		this.a = a;
-	}
-
-	public int getSign() {
-		return sign;
-	}
-
-	public void setSign(int sign) {
-		this.sign = sign;
-	}
-
-	public double getNeededTime() {
-		return neededTime;
-	}
-
-	public void setNeededTime(double neededTime) {
-		this.neededTime = neededTime;
-	}
-
-	public double getCurrentTemp() {
-		return currentTemp;
-	}
-
-	public void setCurrentTemp(double currentTemp) {
-		this.currentTemp = currentTemp;
-	}
-
-	public long getTimePassed() {
-		return timePassed;
-	}
-
-	public void setTimePassed(long timePassed) {
-		this.timePassed = timePassed;
-	}
-
 	private double startTemp;
     private double goalTemp;
     //parameters for formula
@@ -165,4 +93,77 @@ public class InsideTemperature {
     public void setRoomName(String roomName){
     	this.roomName = roomName;
     }
+    
+    
+    public long getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(long startTime) {
+		this.startTime = startTime;
+	}
+
+	public double getStartTemp() {
+		return startTemp;
+	}
+
+	public void setStartTemp(double startTemp) {
+		this.startTemp = startTemp;
+	}
+
+	public double getGoalTemp() {
+		return goalTemp;
+	}
+
+	public void setGoalTemp(double goalTemp) {
+		this.goalTemp = goalTemp;
+	}
+
+	public double getDeltaTemp() {
+		return deltaTemp;
+	}
+
+	public void setDeltaTemp(double deltaTemp) {
+		this.deltaTemp = deltaTemp;
+	}
+
+	public double getA() {
+		return a;
+	}
+
+	public void setA(double a) {
+		this.a = a;
+	}
+
+	public int getSign() {
+		return sign;
+	}
+
+	public void setSign(int sign) {
+		this.sign = sign;
+	}
+
+	public double getNeededTime() {
+		return neededTime;
+	}
+
+	public void setNeededTime(double neededTime) {
+		this.neededTime = neededTime;
+	}
+
+	public double getCurrentTemp() {
+		return currentTemp;
+	}
+
+	public void setCurrentTemp(double currentTemp) {
+		this.currentTemp = currentTemp;
+	}
+
+	public long getTimePassed() {
+		return timePassed;
+	}
+
+	public void setTimePassed(long timePassed) {
+		this.timePassed = timePassed;
+	}
 }
